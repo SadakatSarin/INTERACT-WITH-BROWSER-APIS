@@ -39,8 +39,10 @@ const displayProduct = (product, quantity) => {
 
 };
 
+
+
 const getStoredShoppingCart = () => {
-    
+     
     const storedCart = localStorage.getItem('cart');
     let cart = {};
     if (storedCart) {
@@ -66,6 +68,9 @@ const saveProductToLocalStorage = (product, quantity) => {
 
 }
 
+
+
+
 const displayProductsFromLocalStorage = () => {
     
     const savedCart = getStoredShoppingCart();
@@ -83,13 +88,76 @@ const displayProductsFromLocalStorage = () => {
 }
 
 
+        
+    
+
+
+
+
 const removeItem = () => {
 
+    const removeInputField = document.getElementById('removeInput');
 
-    localStorage.removeItem('cart');
+    const removeInputFieldValue = removeInputField.value;
+    
+    removeInputField.value = '';
+
    
-}
+    
+    const storedCart = JSON.parse(localStorage.getItem('cart')) || {};
+    
+    if (removeInputFieldValue in storedCart) {
+        delete storedCart[removeInputFieldValue];
+        localStorage.setItem('cart', JSON.stringify(storedCart));
+
+        console.log(`Key '${removeInputFieldValue}' removed from the cart.`);
+    } else {
+        console.log(`Key '${removeInputFieldValue}' not found in the cart.`);
+    }
+
+};
+
 
 
 
 displayProductsFromLocalStorage();
+
+
+
+
+
+
+
+//! multiple solution
+
+
+// const removeItem = () => {
+
+
+
+//     const removeInputField = document.getElementById('removeInput');
+
+//     const removeInputFieldValue = removeInputField.value;
+    
+//     removeInputField.value = '';
+
+//     console.log(removeInputField);
+//     const storedCart = localStorage.getItem('cart');
+
+//     const previousStoredCart = JSON.parse(storedCart);
+    
+    
+//         if (previousStoredCart.hasOwnProperty(removeInputFieldValue)) {
+            
+//             delete previousStoredCart[removeInputFieldValue ];
+    
+//             localStorage.setItem('cart', JSON.stringify(previousStoredCart));
+    
+//             console.log(`Key '${removeInputFieldValue }' removed from the cart.`);
+//         } else {
+//             console.log(`Key '${removeInputFieldValue }' not found in the cart.`);
+//         }
+
+    
+
+// };
